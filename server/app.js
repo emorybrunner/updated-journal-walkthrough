@@ -3,7 +3,7 @@ const app = Express(); //creating an instance of express called app by firing of
 const dbConnection = require('./db');
 
 //CommonJS formatting
-const controllers = require("./controllers");
+const controllers = require('./controllers');
 
 //*PLACEMENT IS KEY -- ENDPOINTS
 /*
@@ -15,10 +15,12 @@ app.use(`/test`, (req, res) => {
 })
 */
 
+app.use(Express.json()) //this allows us to use the req.body middleware via the express.json() function
 
 app.use('/journal', controllers.journalController); // --> CommonJS format (controllers.journalController)
 //this creates a base URL for all requests in the journalcontroller
 /* ie http://localhost:3000/journal/practice */
+app.use('/user', controllers.userController);
 
 dbConnection.authenticate()
     .then(() => dbConnection.sync()) //sync all of the models to the database
