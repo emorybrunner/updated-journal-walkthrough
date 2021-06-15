@@ -1,3 +1,4 @@
+require('dotenv').config(); //MUST be at top of file
 const Express = require('express');
 const app = Express(); //creating an instance of express called app by firing off the top level express function from the express modules
 const dbConnection = require('./db');
@@ -16,6 +17,9 @@ app.use(`/test`, (req, res) => {
 */
 
 app.use(Express.json()) //this allows us to use the req.body middleware via the express.json() function
+
+//app.use(require('./middleware/validate-jwt')); 
+//anything beneath validateJWT is protected as it requires a token to access -- but we want people to be able to be able to view others' journals! so, lets move it to the specific functions we want protected
 
 app.use('/journal', controllers.journalController); // --> CommonJS format (controllers.journalController)
 //this creates a base URL for all requests in the journalcontroller
